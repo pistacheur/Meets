@@ -1,0 +1,36 @@
+UVWBasedGame
+Input init
+Input button2.click
+Output done
+Output mainPage.hide
+Output playerRegistrationPage.hide
+Output playerRegistrationPage.show
+State Assumptions q0 reject
+State Assumptions q1
+State Assumptions q2 initial
+Transition Assumptions q0 TRUE q0
+Transition Assumptions q1 init q0
+Transition Assumptions q1 TRUE q1
+Transition Assumptions q2 TRUE q1
+Transition Assumptions q2 ! init q0
+
+State Guarantees q0 reject
+State Guarantees q1
+State Guarantees q2 initial
+State Guarantees q3
+State Guarantees q4
+State Guarantees q5 initial
+Transition Guarantees q0 TRUE q0
+Transition Guarantees q1 ! mainPage.hide q1
+Transition Guarantees q1 done q0
+Transition Guarantees q2 init q3
+Transition Guarantees q2 init q1
+Transition Guarantees q3 ! playerRegistrationPage.show q3
+Transition Guarantees q3 done q0
+Transition Guarantees q4 ! playerRegistrationPage.hide q4
+Transition Guarantees q4 done q0
+Transition Guarantees q5 button2.click q1
+Transition Guarantees q5 TRUE q5
+Transition Guarantees q5 button2.click q4
+
+
