@@ -1,19 +1,24 @@
+
 [CustomInputActions]
+
+ 
+
 [CustomOutputActions]
 
-
-
-
-
+ 
 
 [Assumptions]
+
 init
+
 X G ! init
 
 [Guarantees]
-init -> !done U mainPage.hide
-init -> !done U playerRegistrationPage.show
 
-G(button2.click -> !done U playerRegistrationPage.hide)
+init -> !done U mainPage.show
+
+init -> !done U playerRegistrationPage.hide
+
+G(button2.click -> !done U playerRegistrationPage.show)
+
 G(button2.click -> !done U mainPage.hide)
-

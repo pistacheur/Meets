@@ -3,6 +3,7 @@ Input init
 Input button2.click
 Output done
 Output mainPage.hide
+Output mainPage.show
 Output playerRegistrationPage.hide
 Output playerRegistrationPage.show
 State Assumptions q0 reject
@@ -19,18 +20,21 @@ State Guarantees q1
 State Guarantees q2 initial
 State Guarantees q3
 State Guarantees q4
-State Guarantees q5 initial
+State Guarantees q5
+State Guarantees q6 initial
 Transition Guarantees q0 TRUE q0
-Transition Guarantees q1 ! mainPage.hide q1
+Transition Guarantees q1 ! mainPage.show q1
 Transition Guarantees q1 done q0
 Transition Guarantees q2 init q3
 Transition Guarantees q2 init q1
-Transition Guarantees q3 ! playerRegistrationPage.show q3
+Transition Guarantees q3 ! playerRegistrationPage.hide q3
 Transition Guarantees q3 done q0
-Transition Guarantees q4 ! playerRegistrationPage.hide q4
+Transition Guarantees q4 ! playerRegistrationPage.show q4
 Transition Guarantees q4 done q0
-Transition Guarantees q5 button2.click q1
-Transition Guarantees q5 TRUE q5
-Transition Guarantees q5 button2.click q4
+Transition Guarantees q5 ! mainPage.hide q5
+Transition Guarantees q5 done q0
+Transition Guarantees q6 button2.click q5
+Transition Guarantees q6 TRUE q6
+Transition Guarantees q6 button2.click q4
 
 
