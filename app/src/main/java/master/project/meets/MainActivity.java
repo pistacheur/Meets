@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -83,8 +84,15 @@ return; }
 
         setContentView(R.layout.activity_main);
 
-        // --SYNTHESIZED-CODE-ON-CREATE-START—
-
+        // --SYNTHESIZED-CODE-ON-CREATE-START--
+onInputAction0();
+      { final Button k = findViewById(R.id.button2);
+    k.setOnClickListener(new Button.OnClickListener() {
+        public void onClick(View v) {
+                onInputAction1();
+                }
+        }); }
+Log.w("Action","Application start");
         // --SYNTHESIZED-CODE-ON-CREATE-END--
 
     }
