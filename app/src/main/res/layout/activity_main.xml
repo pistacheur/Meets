@@ -11,16 +11,345 @@
         android:id="@+id/mainPage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/teal_200">
+        android:background="@color/teal_200"
+        >
 
-
+        <ImageView
+            android:id="@+id/logo0"
+            android:layout_width="114dp"
+            android:layout_height="69dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_white_large" />
 
 
         <Button
-                    android:id="@+id/button2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Player" />
+            android:id="@+id/button1"
+            android:layout_width="244dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="232dp"
+            android:text="@string/button_Manager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="244dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="290dp"
+            android:text="@string/button_Player"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewPP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="116dp"
+            android:layout_weight="1"
+            android:text="@string/welcome"
+            android:textAlignment="center"
+            android:textColor="#CF0F0F"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/connectPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/teal_200">
+
+
+        <ImageView
+            android:id="@+id/logo4"
+            android:layout_width="114dp"
+            android:layout_height="69dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_white_large" />
+
+
+        <TextView
+            android:id="@+id/textConnect"
+            android:layout_width="310dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="128dp"
+            android:text="@string/text_M_C"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <EditText
+            android:id="@+id/managerName"
+            android:layout_width="239dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="236dp"
+            android:autofillHints="name"
+            android:hint="@string/name_M"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <EditText
+            android:id="@+id/mangerPassword"
+            android:layout_width="245dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="316dp"
+            android:layout_marginEnd="84dp"
+            android:ems="10"
+            android:hint="@string/password_M"
+            android:autofillHints="password"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/connect"
+            android:layout_width="216dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="420dp"
+            android:clickable="true"
+            android:text="@string/connect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/previous"
+            android:layout_width="113dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="512dp"
+            android:clickable="true"
+            android:text="@string/previous"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/managerPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/teal_200">
+
+        <ImageView
+            android:id="@+id/logoo"
+            android:layout_width="114dp"
+            android:layout_height="69dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_white_large" />
+
+
+        <TextView
+            android:id="@+id/textViewM"
+            android:layout_width="310dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="128dp"
+            android:text="@string/text_M"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/modifyP"
+            android:layout_width="216dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="216dp"
+            android:clickable="true"
+            android:text="@string/modify_P"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.482"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/changeT"
+            android:layout_width="219dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="304dp"
+            android:clickable="true"
+            android:text="@string/change_T"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/selectT"
+            android:layout_width="223dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="380dp"
+            android:clickable="true"
+            android:text="@string/stadium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.478"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/logOut"
+            android:layout_width="95dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="464dp"
+            android:clickable="true"
+            android:text="@string/log_out"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.917"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/playerRegistrationPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/teal_200">
+
+        <ImageView
+            android:id="@+id/logo1"
+            android:layout_width="114dp"
+            android:layout_height="69dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_white_large" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="288dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="104dp"
+            android:text="@string/text_R_P"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/pName"
+            android:layout_width="252dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="200dp"
+            android:autofillHints="name"
+            android:hint="@string/name_P"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/pSurname"
+            android:layout_width="250dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="256dp"
+            android:autofillHints="surname"
+            android:hint="@string/surname_P"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/pAddress"
+            android:layout_width="254dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="320dp"
+            android:autofillHints="name"
+            android:hint="@string/address_P"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonRegSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="400dp"
+            android:clickable="true"
+            android:text="@string/submit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/RegCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="470dp"
+            android:clickable="true"
+            android:text="@string/regCancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/previous1"
+            android:layout_width="113dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="530dp"
+            android:clickable="true"
+            android:text="@string/previous"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
 
@@ -29,19 +358,73 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/playerRegistrationPage"
+        android:id="@+id/registrationCancelingPage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="@color/teal_200">
+
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="114dp"
+            android:layout_height="69dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_white_large" />
+
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Welcome to Meet's"
+            android:id="@+id/textViewCP"
+            android:layout_width="307dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="132dp"
+            android:text="@string/cancel_info"
             android:textAlignment="center"
-            android:textColor="#CF0F0F"
-            android:textSize="20dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/pUniqueID"
+            android:layout_width="252dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="308dp"
+            android:autofillHints="name"
+            android:hint="@string/player_ID"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonCancelSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="400dp"
+            android:clickable="true"
+            android:text="@string/submit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/previous2"
+            android:layout_width="113dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="530dp"
+            android:clickable="true"
+            android:text="@string/previous"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

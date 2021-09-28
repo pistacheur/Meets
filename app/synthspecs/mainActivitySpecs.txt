@@ -16,9 +16,62 @@ X G ! init
 [Guarantees]
 
 init -> !done U mainPage.show
-
+init -> !done U connectPage.hide
+init -> !done U managerPage.hide
 init -> !done U playerRegistrationPage.hide
+init -> !done U registrationCancelingPage.hide
 
 G(button2.click -> !done U playerRegistrationPage.show)
-
 G(button2.click -> !done U mainPage.hide)
+G(button2.click -> !done U registrationCancelingPage.hide)
+(button2.click -> !done U connectPage.hide)
+(button2.click -> !done U managerPage.hide)
+
+G(RegCancel.click -> !done U registrationCancelingPage.show)
+G(RegCancel.click -> !done U mainPage.hide)
+G(RegCancel.click -> !done U playerRegistrationPage.hide)
+G(RegCancel.click -> !done U connectPage.hide)
+G(RegCancel.click -> !done U managerPage.hide)
+
+
+G(button1.click -> !done U connectPage.show)
+G(button1.click -> !done U managerPage.hide)
+G(button1.click -> !done U mainPage.hide)
+G(button1.click -> !done U playerRegistrationPage.hide)
+G(button1.click -> !done U registrationCancelingPage.hide)
+
+
+G(connect.click -> !done U managerPage.show)
+G(connect.click -> !done U mainPage.hide)
+G(connect.click -> !done U playerRegistrationPage.hide)
+G(connect.click -> !done U registrationCancelingPage.hide)
+G(connect.click -> !done U connectPage.hide)
+
+
+G(logOut.click -> !done U connectPage.show)
+G(logOut.click -> !done U mainPage.hide)
+G(logOut.click -> !done U playerRegistrationPage.hide)
+G(logOut.click -> !done U registrationCancelingPage.hide)
+G(logOut.click -> !done U managerPage.hide)
+
+
+G(previous.click -> !done U mainPage.show)
+G(previous.click -> !done U playerRegistrationPage.hide)
+G(previous.click -> !done U registrationCancelingPage.hide)
+G(previous.click -> !done U connectPage.hide)
+G(previous.click -> !done U managerPage.hide)
+
+
+G(previous1.click -> !done U mainPage.show)
+G(previous1.click -> !done U playerRegistrationPage.hide)
+G(previous1.click -> !done U registrationCancelingPage.hide)
+G(previous1.click -> !done U connectPage.hide)
+G(previous1.click -> !done U managerPage.hide)
+
+
+G(previous2.click -> !done U playerRegistrationPage.show)
+G(previous2.click -> !done U registrationCancelingPage.hide)
+G(previous2.click -> !done U mainPage.hide)
+G(previous2.click -> !done U connectPage.hide)
+G(previous2.click -> !done U managerPage.hide)
+
