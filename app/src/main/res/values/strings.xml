@@ -8,12 +8,12 @@
     <string name="button_Player">Player</string>
     <string name="button_Manager">Manager</string>
     <string name="submit">Submit</string>
-    <string name="regCancel">click her to cancel Registration</string>
+    <string name="regCancel"> cancel Registration her</string>
     <string name="todo">TODO</string>
     <string name="cancel_info">you have had a setback and will certainly not be able to participate in today\'s game. it is not a problem to cancel your registration to give your place to another player. just enter your unique identification code and then validate.</string>
     <string name="player_ID">Enter your Unique User ID</string>
     <string name="text_M">Welcome to you Manager what would you like to do ?</string>
-    <string name="modify_P">Modify the Playlist</string>
+    <string name="modify_P">See and (or) modify the Playlist</string>
     <string name="change_T">Change the play Time</string>
     <string name="log_out">logOut</string>
     <string name="connect">Connection</string>
@@ -22,4 +22,20 @@
     <string name="password_M">Password</string>
     <string name="stadium">Select the Stadium</string>
     <string name="previous">return</string>
+    <string name="programm">programm a play</string>
+    <string name="tbl_name">Name</string>
+    <string name="tbl_surname">Surname</string>
+    <string name="tbl_address">Address</string>
+
+
+
+
+
+    <string name="infosCreateG"> Welcome Manager please select a date, time and place to create a new Play </string>
+    <string name="get_date">Get Date</string>
+    <string name="gAddress"> Enter the Play Address </string>
+    <string name="enter_date">Enter Date</string>
+    <string name="select_the_date">Select the Date</string>
+    <string name="enter_time">Enter Time</string>
+    <string name="create">create</string>
 </resources>

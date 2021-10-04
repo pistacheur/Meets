@@ -4,7 +4,12 @@ Input button1.click
 Input button2.click
 Input connect.click
 Input previous.click
+Input createP.click
+Input modifyP.click
 Input logOut.click
+Input retour.click
+Input back1.click
+Input back.click
 Input RegCancel.click
 Input previous1.click
 Input previous2.click
@@ -15,6 +20,10 @@ Output connectPage.hide
 Output connectPage.show
 Output managerPage.hide
 Output managerPage.show
+Output playerListPage.hide
+Output playerListPage.show
+Output createGamePage.hide
+Output createGamePage.show
 Output playerRegistrationPage.hide
 Output playerRegistrationPage.show
 Output registrationCancelingPage.hide
@@ -33,14 +42,18 @@ State Guarantees q1
 State Guarantees q2
 State Guarantees q3
 State Guarantees q4
-State Guarantees q5 initial
+State Guarantees q5
 State Guarantees q6
-State Guarantees q7
+State Guarantees q7 initial
 State Guarantees q8
 State Guarantees q9
 State Guarantees q10
 State Guarantees q11
-State Guarantees q12 initial
+State Guarantees q12
+State Guarantees q13
+State Guarantees q14
+State Guarantees q15
+State Guarantees q16 initial
 Transition Guarantees q0 TRUE q0
 Transition Guarantees q1 ! mainPage.show q1
 Transition Guarantees q1 done q0
@@ -50,63 +63,124 @@ Transition Guarantees q3 ! managerPage.hide q3
 Transition Guarantees q3 done q0
 Transition Guarantees q4 ! playerRegistrationPage.hide q4
 Transition Guarantees q4 done q0
-Transition Guarantees q5 init q6
-Transition Guarantees q5 init q1
-Transition Guarantees q5 button2.click q2
-Transition Guarantees q5 init q2
-Transition Guarantees q5 button2.click q3
-Transition Guarantees q5 init q3
-Transition Guarantees q5 init q4
-Transition Guarantees q6 ! registrationCancelingPage.hide q6
+Transition Guarantees q5 ! registrationCancelingPage.hide q5
+Transition Guarantees q5 done q0
+Transition Guarantees q6 ! createGamePage.hide q6
 Transition Guarantees q6 done q0
-Transition Guarantees q7 ! playerRegistrationPage.show q7
-Transition Guarantees q7 done q0
-Transition Guarantees q8 ! mainPage.hide q8
+Transition Guarantees q7 button2.click q8
+Transition Guarantees q7 init q8
+Transition Guarantees q7 init q1
+Transition Guarantees q7 button2.click q2
+Transition Guarantees q7 init q2
+Transition Guarantees q7 button2.click q3
+Transition Guarantees q7 init q3
+Transition Guarantees q7 init q4
+Transition Guarantees q7 init q5
+Transition Guarantees q7 button2.click q6
+Transition Guarantees q7 init q6
+Transition Guarantees q8 ! playerListPage.hide q8
 Transition Guarantees q8 done q0
-Transition Guarantees q9 ! registrationCancelingPage.show q9
+Transition Guarantees q9 ! playerRegistrationPage.show q9
 Transition Guarantees q9 done q0
-Transition Guarantees q10 ! connectPage.show q10
+Transition Guarantees q10 ! mainPage.hide q10
 Transition Guarantees q10 done q0
-Transition Guarantees q11 ! managerPage.show q11
+Transition Guarantees q11 ! registrationCancelingPage.show q11
 Transition Guarantees q11 done q0
-Transition Guarantees q12 previous2.click q3
-Transition Guarantees q12 previous1.click q3
-Transition Guarantees q12 previous.click q3
-Transition Guarantees q12 logOut.click q3
-Transition Guarantees q12 button1.click q3
-Transition Guarantees q12 RegCancel.click q3
-Transition Guarantees q12 TRUE q12
-Transition Guarantees q12 previous2.click q7
-Transition Guarantees q12 button2.click q7
-Transition Guarantees q12 previous2.click q8
-Transition Guarantees q12 logOut.click q8
-Transition Guarantees q12 connect.click q8
-Transition Guarantees q12 button1.click q8
-Transition Guarantees q12 RegCancel.click q8
-Transition Guarantees q12 button2.click q8
-Transition Guarantees q12 previous2.click q6
-Transition Guarantees q12 previous1.click q6
-Transition Guarantees q12 previous.click q6
-Transition Guarantees q12 logOut.click q6
-Transition Guarantees q12 connect.click q6
-Transition Guarantees q12 button1.click q6
-Transition Guarantees q12 button2.click q6
-Transition Guarantees q12 RegCancel.click q9
-Transition Guarantees q12 previous1.click q4
-Transition Guarantees q12 previous.click q4
-Transition Guarantees q12 logOut.click q4
-Transition Guarantees q12 connect.click q4
-Transition Guarantees q12 button1.click q4
-Transition Guarantees q12 RegCancel.click q4
-Transition Guarantees q12 previous2.click q2
-Transition Guarantees q12 previous1.click q2
-Transition Guarantees q12 previous.click q2
-Transition Guarantees q12 connect.click q2
-Transition Guarantees q12 RegCancel.click q2
-Transition Guarantees q12 logOut.click q10
-Transition Guarantees q12 button1.click q10
-Transition Guarantees q12 connect.click q11
-Transition Guarantees q12 previous1.click q1
-Transition Guarantees q12 previous.click q1
+Transition Guarantees q12 ! connectPage.show q12
+Transition Guarantees q12 done q0
+Transition Guarantees q13 ! managerPage.show q13
+Transition Guarantees q13 done q0
+Transition Guarantees q14 ! createGamePage.show q14
+Transition Guarantees q14 done q0
+Transition Guarantees q15 ! playerListPage.show q15
+Transition Guarantees q15 done q0
+Transition Guarantees q16 retour.click q8
+Transition Guarantees q16 back1.click q8
+Transition Guarantees q16 back.click q8
+Transition Guarantees q16 createP.click q8
+Transition Guarantees q16 previous2.click q8
+Transition Guarantees q16 previous1.click q8
+Transition Guarantees q16 previous.click q8
+Transition Guarantees q16 logOut.click q8
+Transition Guarantees q16 connect.click q8
+Transition Guarantees q16 button1.click q8
+Transition Guarantees q16 RegCancel.click q8
+Transition Guarantees q16 TRUE q16
+Transition Guarantees q16 previous2.click q9
+Transition Guarantees q16 button2.click q9
+Transition Guarantees q16 retour.click q10
+Transition Guarantees q16 modifyP.click q10
+Transition Guarantees q16 back1.click q10
+Transition Guarantees q16 back.click q10
+Transition Guarantees q16 createP.click q10
+Transition Guarantees q16 previous2.click q10
+Transition Guarantees q16 logOut.click q10
+Transition Guarantees q16 connect.click q10
+Transition Guarantees q16 button1.click q10
+Transition Guarantees q16 RegCancel.click q10
+Transition Guarantees q16 button2.click q10
+Transition Guarantees q16 retour.click q5
+Transition Guarantees q16 modifyP.click q5
+Transition Guarantees q16 back1.click q5
+Transition Guarantees q16 back.click q5
+Transition Guarantees q16 createP.click q5
+Transition Guarantees q16 previous2.click q5
+Transition Guarantees q16 previous1.click q5
+Transition Guarantees q16 previous.click q5
+Transition Guarantees q16 logOut.click q5
+Transition Guarantees q16 connect.click q5
+Transition Guarantees q16 button1.click q5
+Transition Guarantees q16 button2.click q5
+Transition Guarantees q16 RegCancel.click q11
+Transition Guarantees q16 retour.click q4
+Transition Guarantees q16 modifyP.click q4
+Transition Guarantees q16 back1.click q4
+Transition Guarantees q16 back.click q4
+Transition Guarantees q16 createP.click q4
+Transition Guarantees q16 previous1.click q4
+Transition Guarantees q16 previous.click q4
+Transition Guarantees q16 logOut.click q4
+Transition Guarantees q16 connect.click q4
+Transition Guarantees q16 button1.click q4
+Transition Guarantees q16 RegCancel.click q4
+Transition Guarantees q16 retour.click q2
+Transition Guarantees q16 modifyP.click q2
+Transition Guarantees q16 back1.click q2
+Transition Guarantees q16 back.click q2
+Transition Guarantees q16 createP.click q2
+Transition Guarantees q16 previous2.click q2
+Transition Guarantees q16 previous1.click q2
+Transition Guarantees q16 previous.click q2
+Transition Guarantees q16 connect.click q2
+Transition Guarantees q16 RegCancel.click q2
+Transition Guarantees q16 modifyP.click q3
+Transition Guarantees q16 createP.click q3
+Transition Guarantees q16 previous2.click q3
+Transition Guarantees q16 previous1.click q3
+Transition Guarantees q16 previous.click q3
+Transition Guarantees q16 logOut.click q3
+Transition Guarantees q16 button1.click q3
+Transition Guarantees q16 RegCancel.click q3
+Transition Guarantees q16 retour.click q6
+Transition Guarantees q16 modifyP.click q6
+Transition Guarantees q16 back1.click q6
+Transition Guarantees q16 back.click q6
+Transition Guarantees q16 previous2.click q6
+Transition Guarantees q16 previous1.click q6
+Transition Guarantees q16 previous.click q6
+Transition Guarantees q16 logOut.click q6
+Transition Guarantees q16 connect.click q6
+Transition Guarantees q16 button1.click q6
+Transition Guarantees q16 RegCancel.click q6
+Transition Guarantees q16 logOut.click q12
+Transition Guarantees q16 button1.click q12
+Transition Guarantees q16 retour.click q13
+Transition Guarantees q16 back1.click q13
+Transition Guarantees q16 back.click q13
+Transition Guarantees q16 connect.click q13
+Transition Guarantees q16 previous1.click q1
+Transition Guarantees q16 previous.click q1
+Transition Guarantees q16 createP.click q14
+Transition Guarantees q16 modifyP.click q15
 
 

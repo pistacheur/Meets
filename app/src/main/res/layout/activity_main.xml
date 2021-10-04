@@ -145,13 +145,14 @@
         <Button
             android:id="@+id/previous"
             android:layout_width="113dp"
-            android:layout_height="34dp"
+            android:layout_height="48dp"
             android:layout_marginStart="36dp"
             android:layout_marginTop="512dp"
             android:clickable="true"
             android:text="@string/previous"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -188,11 +189,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <Button
+            android:id="@+id/createP"
+            android:layout_width="216dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="250dp"
+            android:clickable="true"
+            android:text="@string/programm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.482"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
         <Button
             android:id="@+id/modifyP"
             android:layout_width="216dp"
             android:layout_height="56dp"
-            android:layout_marginTop="216dp"
+            android:layout_marginTop="320dp"
             android:clickable="true"
             android:text="@string/modify_P"
             app:layout_constraintEnd_toEndOf="parent"
@@ -204,7 +221,7 @@
             android:id="@+id/changeT"
             android:layout_width="219dp"
             android:layout_height="59dp"
-            android:layout_marginTop="304dp"
+            android:layout_marginTop="720dp"
             android:clickable="true"
             android:text="@string/change_T"
             app:layout_constraintEnd_toEndOf="parent"
@@ -217,7 +234,7 @@
             android:id="@+id/selectT"
             android:layout_width="223dp"
             android:layout_height="60dp"
-            android:layout_marginTop="380dp"
+            android:layout_marginTop="880dp"
             android:clickable="true"
             android:text="@string/stadium"
             app:layout_constraintEnd_toEndOf="parent"
@@ -237,7 +254,180 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/retour"
+            android:layout_width="113dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="912dp"
+            android:clickable="true"
+            android:text="@string/previous"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/playerListPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/teal_200"
+        >
+
+        <ImageView
+            android:id="@+id/logoe"
+            android:layout_width="114dp"
+            android:layout_height="69dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_white_large" />
+
+        <ListView
+            android:id="@+id/listViewPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <Button
+            android:id="@+id/back1"
+            android:layout_width="113dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="510dp"
+            android:clickable="true"
+            android:text="@string/previous"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/createGamePage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/teal_200">
+
+        <ImageView
+            android:id="@+id/logoC"
+            android:layout_width="114dp"
+            android:layout_height="69dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_white_large" />
+
+
+        <TextView
+            android:id="@+id/createG"
+            android:layout_width="310dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="128dp"
+            android:text="@string/infosCreateG"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <EditText
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="320dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/enter_time"
+            android:inputType="time"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.435"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextFields" />
+
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="250dp"
+            android:autofillHints="TODO"
+            android:ems="10"
+            android:hint="@string/enter_date"
+            android:inputType="date"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            android:textColor="#263238"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints,TextFields" />
+
+
+        <EditText
+            android:id="@+id/gAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="400dp"
+            android:autofillHints="TODO"
+            android:ems="10"
+            android:hint="@string/gAddress"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            android:textColor="#263238"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints,TextFields" />
+
+
+        <Button
+            android:id="@+id/create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="500dp"
+            android:clickable="true"
+            android:text="@string/create"
+            android:textColor="@color/teal_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="113dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="510dp"
+            android:clickable="true"
+            android:text="@string/previous"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 
@@ -270,11 +460,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/uuidShow"
+            android:layout_width="210dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="180dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <EditText
             android:id="@+id/pName"
-            android:layout_width="252dp"
-            android:layout_height="49dp"
-            android:layout_marginTop="200dp"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="230dp"
             android:autofillHints="name"
             android:hint="@string/name_P"
             android:inputType="text"
@@ -289,7 +491,7 @@
             android:id="@+id/pSurname"
             android:layout_width="250dp"
             android:layout_height="53dp"
-            android:layout_marginTop="256dp"
+            android:layout_marginTop="290dp"
             android:autofillHints="surname"
             android:hint="@string/surname_P"
             android:inputType="text"
@@ -302,9 +504,9 @@
 
         <EditText
             android:id="@+id/pAddress"
-            android:layout_width="254dp"
+            android:layout_width="250dp"
             android:layout_height="50dp"
-            android:layout_marginTop="320dp"
+            android:layout_marginTop="350dp"
             android:autofillHints="name"
             android:hint="@string/address_P"
             android:inputType="text"
@@ -319,7 +521,7 @@
             android:id="@+id/buttonRegSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="400dp"
+            android:layout_marginTop="430dp"
             android:clickable="true"
             android:text="@string/submit"
             app:layout_constraintEnd_toEndOf="parent"
