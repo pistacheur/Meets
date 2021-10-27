@@ -22,10 +22,12 @@
     <string name="password_M">Password</string>
     <string name="stadium">Select the Stadium</string>
     <string name="previous">return</string>
+    <string name="Max_Player">Max of Player</string>
     <string name="programm">programm a play</string>
     <string name="tbl_name">Name</string>
     <string name="tbl_surname">Surname</string>
     <string name="tbl_address">Address</string>
+    <string name="email">E-Mail Address</string>
 
 
 

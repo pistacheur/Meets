@@ -9,15 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -25,166 +23,341 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.UUID;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    //check if player already exist
-    public boolean playerExist(String name, String surname, String address){
-        boolean response = false;
-        File playerFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/" +"listPlayer.json");
-        if(playerFile.exists()){
-            try {
-                FileReader fr = new FileReader(playerFile);
-                BufferedReader bfr_render = new BufferedReader(fr);
-                String line_render = bfr_render.readLine();
-                while (line_render != null) {
-                    try {
-                        JSONObject jo = new JSONObject(line_render.toString());
-                        if(jo.getString("name").equalsIgnoreCase(name)
-                                && jo.getString("surname").equalsIgnoreCase(surname)
-                                && jo.getString("address").equalsIgnoreCase(address))
-                            response = true;
-                        line_render = bfr_render.readLine();
+    private static String currentGame = "";
+    private static final String POST_URL = "https://expensesplit.safeml.de/cgi-bin/kvstore.py?id=playerList&pw=mykey&val=";
+    private static final String POST_GAME_URL = "https://expensesplit.safeml.de/cgi-bin/kvstore.py?id=currentGame&pw=mykey&val=";
+    private static final String GET_URL = "https://expensesplit.safeml.de/cgi-bin/kvstore.py?id=playerList";
+    private static final String GET_GAME_URL = "https://expensesplit.safeml.de/cgi-bin/kvstore.py?id=currentGame";
+    private static final String USER_AGENT = "Mozilla/5.0";
 
+    //send  mail
+    public void sendMail(String subject, String body, String target){
+        SendMail send = new SendMail(this.getApplicationContext(),target,subject,body);
+    }
+    //get response from api
+    public ArrayList<String> getApiCall() throws IOException, JSONException {
+        ArrayList<String> listString = new ArrayList<>();
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
 
-                    } catch (JSONException ex) {
-                        System.out.println(" Error json object  " + ex.toString());
+            URL url = new URL(GET_URL);
+
+            HttpURLConnection cnx = (HttpURLConnection) url.openConnection();
+            cnx.setRequestMethod("GET");
+            cnx.setRequestProperty("User-Agent",USER_AGENT);
+            int responseCode = cnx.getResponseCode();
+            if(responseCode == HttpURLConnection.HTTP_OK){
+                BufferedReader bfr = new BufferedReader(new InputStreamReader(cnx.getInputStream()));
+                String inputLine = bfr.readLine();
+                StringBuffer response = new StringBuffer();
+                while(inputLine != null){
+                    if(inputLine.toString() != null && inputLine.toString() != "" && inputLine.toString() != "[]"){
+                        response.append(inputLine.toString());
+                        System.out.println("Getline =: "+inputLine);
+                        listString.add(inputLine);
                     }
+                    inputLine = bfr.readLine();
                 }
-                bfr_render.close();
-            }catch(IOException ex) {
-                System.out.println(" Error Filereader  " + ex.toString());
+
+                System.out.println(" GetResponse  :: "+response.toString());
+                if(response.toString() != "[]"){
+                    JSONArray jr = new JSONArray((response.toString()));
+                    listString.clear();
+                    for(int i=0; i< jr.length(); i++){
+                        JSONObject jo = jr.getJSONObject(i);
+                        System.out.println(" GetListe  :: "+String.valueOf(jo));
+                        listString.add(String.valueOf(jr.getJSONObject(i)));
+                    }
+                } else {
+                    System.out.println("List empty");
+                }
+
+                bfr.close();
+            } else {
+                System.out.println("GET request not worked");
             }
-        } else {
-            System.out.println("File not exit in the given directory ");
+
+        }
+
+        return listString;
+    }
+
+    //post data to api
+    public int postApiCall(String data) throws IOException {
+        int responseCode = 0;
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            URL url = new URL(POST_URL+data);
+
+            HttpURLConnection cnx = (HttpURLConnection) url.openConnection();
+            cnx.setRequestMethod("GET");
+            cnx.setRequestProperty("User-Agent",USER_AGENT);
+             responseCode = cnx.getResponseCode();
+            if(responseCode == HttpURLConnection.HTTP_OK){
+                System.out.println("Data was added");
+            } else {
+                System.out.println("GET request not worked");
+            }
+
+        }
+        return responseCode;
+    }
+
+    //post new game to the server
+    public int postGameToServer(String game) throws IOException {
+        int responseCode = 0;
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            URL url = new URL(POST_GAME_URL+game);
+
+            HttpURLConnection cnx = (HttpURLConnection) url.openConnection();
+            cnx.setRequestMethod("GET");
+            cnx.setRequestProperty("User-Agent",USER_AGENT);
+            responseCode = cnx.getResponseCode();
+            if(responseCode == HttpURLConnection.HTTP_OK){
+                System.out.println("Game was added");
+                postApiCall("[]");
+            } else {
+                System.out.println("GET request not worked");
+            }
+
+        }
+        return responseCode;
+    }
+    //check if player already exist
+    public boolean playerExist(String name, String surname, String address) throws IOException, JSONException {
+        boolean response = false;
+        ArrayList<String> listData = getApiCall();
+        System.out.println("Current list : : "+listData);
+        for(String line_render : listData){
+                try {
+                    JSONObject jo = new JSONObject(line_render);
+                    if(jo.getString("name").equalsIgnoreCase(name)
+                            && jo.getString("surname").equalsIgnoreCase(surname)
+                            && jo.getString("address").equalsIgnoreCase(address))
+                        response = true;
+
+                } catch (JSONException ex) {
+                    System.out.println(" Error json object  " + ex.toString());
+                }
         }
         return response;
 
     }
 
+    //check if Game exist and set the player form
+    public String ifGameExist() throws IOException, JSONException {
+        String time = "";
+        String date = "";
+        final TextView tv_title = (TextView) findViewById(R.id.textView);
+        boolean state = true;
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            URL url = new URL(GET_GAME_URL);
+
+            HttpURLConnection cnx = (HttpURLConnection) url.openConnection();
+            cnx.setRequestMethod("GET");
+            cnx.setRequestProperty("User-Agent", USER_AGENT);
+            int responseCode = cnx.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader bfr = new BufferedReader(new InputStreamReader(cnx.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+                while ((inputLine = bfr.readLine()) != null) {
+                    if (inputLine != null && inputLine != "" && inputLine.length() > 0) {
+                        JSONObject jo = new JSONObject(inputLine);
+                        if(!jo.getString("date").equalsIgnoreCase("")
+                                && !jo.getString("time").equalsIgnoreCase("")
+                                && !jo.getString("address").equalsIgnoreCase("")){
+                            state = true;
+                            currentGame = inputLine;
+                            time = jo.getString("time");
+                            date = jo.getString("date");
+                        }
+                    }
+                }
+                bfr.close();
+            }
+        }
+
+        final EditText edName = (EditText) findViewById(R.id.pName);
+        final EditText edSurname = (EditText) findViewById(R.id.pSurname);
+        final EditText edAddress = (EditText) findViewById(R.id.pAddress);
+        if(state == false){
+            //set fields visibility
+            edName.setEnabled(false);
+            edSurname.setEnabled(false);
+            edAddress.setEnabled(false);
+            tv_title.setText("There is no game avaible now. Please try again later");
+        } else {
+            edName.setEnabled(true);
+            edSurname.setEnabled(true);
+            edAddress.setEnabled(true);
+
+            if(getCurrentNumberOfPlayer() > getMaxNumberOfPlayer())
+                tv_title.setText("Welcome! \n Registrations deadline to the actuel Play is on "+date+" at "+time+" ." +
+                        " Fill out the form and save the given Unique ID.\n" + " you will be Number "+ ((getCurrentNumberOfPlayer() - getMaxNumberOfPlayer()) +1) + " in the wait list");
+            else
+                tv_title.setText("Welcome! \n Registrations to the actuel Play is on "+date+" at "+time+" ." +
+                        "\n Fill out the form and save the given Unique ID." +
+                        "\n Actuel "+getCurrentNumberOfPlayer()+" /"+getMaxNumberOfPlayer()+" Player");
+        }
+
+        return currentGame;
+    }
+
+    //return max number of player for the current game
+    public int getMaxNumberOfPlayer() throws IOException, JSONException {
+        int max = 0;
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            URL url = new URL(GET_GAME_URL);
+
+            HttpURLConnection cnx = (HttpURLConnection) url.openConnection();
+            cnx.setRequestMethod("GET");
+            cnx.setRequestProperty("User-Agent", USER_AGENT);
+            int responseCode = cnx.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader bfr = new BufferedReader(new InputStreamReader(cnx.getInputStream()));
+                String inputLine = bfr.readLine();
+                StringBuffer response = new StringBuffer();
+                while (inputLine != null) {
+                    if (inputLine != null && inputLine != "" && inputLine.length() > 0) {
+                        JSONObject jo = new JSONObject(inputLine);
+                        if(!jo.getString("maxplayer").equalsIgnoreCase("")){
+                            max = Integer.parseInt(jo.getString("maxplayer"));
+                        }
+                    }
+                    inputLine = bfr.readLine();
+                }
+            }
+        }
+
+        return max;
+    }
+
+    //get current number of player in the current player list
+    public int getCurrentNumberOfPlayer() throws IOException, JSONException {
+        int count = 0;
+        ArrayList<String> listPlayer = new ArrayList<>();
+        listPlayer = getApiCall();
+        for(String line_render : listPlayer){
+            try {
+                JSONObject jo = new JSONObject(line_render);
+                if(!jo.getString("name").equalsIgnoreCase(""))
+                    count++;
+
+            } catch (JSONException ex) {
+                System.out.println(" Error json object current number  of player  " + ex.toString());
+            }
+        }
+
+        return count;
+    }
     //delete player by id
 
-    public boolean deletePlayerById(String uuid){
+    public boolean deletePlayerById(String uuid) throws IOException, JSONException {
         boolean response = false;
-        File playerFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/" +"listPlayer.json");
-        if(playerFile.exists()){
+        ArrayList<String> listData = new ArrayList<>();
+        JSONArray jr = new JSONArray();
+        listData = getApiCall();
             try {
-                FileReader fr = new FileReader(playerFile);
-                BufferedReader bfr_render = new BufferedReader(fr);
-                String line_render = bfr_render.readLine();
                 StringBuilder data = new StringBuilder();
-                while (line_render != null) {
-                    try {
-                        JSONObject jo = new JSONObject(line_render.toString());
-                        if(jo.getString("uniqId").equalsIgnoreCase(uuid))
-                            response = true;
-                        else
-                            data.append(line_render).append("\n");
+                    for(String line_render : listData){
+                        try {
+                            JSONObject jo = new JSONObject(line_render);
+                            if(jo.getString("uniqId").equalsIgnoreCase(uuid))
+                                response = true;
+                            else
+                                jr.put(jo);
+                                //data.append(line_render).append("\n");
 
-                    } catch (JSONException ex) {
-                        System.out.println(" Error json object  " + ex.toString());
+                        } catch (JSONException ex) {
+                            System.out.println(" Error json object  " + ex.toString());
+                        }
                     }
-                    line_render = bfr_render.readLine();
-                }
-                bfr_render.close();
-                //rewritte data into file
-                try {
-                    FileWriter filewriter = new FileWriter(playerFile);
-                    BufferedWriter bfrW = new BufferedWriter(filewriter);
-                    bfrW.write(String.valueOf(data));
-                    bfrW.close();
-                } catch(IOException ex){
-                    System.out.println("Writer error rewritting file  "+ex.toString());
-                }
-
+                //rewritte data and post to server
+                postApiCall(String.valueOf(jr));
             }catch(IOException ex) {
                 System.out.println(" Error Filereader  " + ex.toString());
             }
-        } else {
-            System.out.println(" file not exist to delete player  ");
-        }
         return response;
     }
 
     //check if uuid already exist
-    public boolean uuidExist(String id){
+    public boolean uuidExist(String id) throws IOException, JSONException {
         boolean response = false;
-        File playerFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/" +"listPlayer.json");
-        if(playerFile.exists()){
+        ArrayList<String> listData = getApiCall();
+        for(String line_render : listData){
             try {
-                FileReader fr = new FileReader(playerFile);
-                BufferedReader bfr_render = new BufferedReader(fr);
-                String line_render = bfr_render.readLine();
-                while (line_render != null) {
-                    try {
-                        JSONObject jo = new JSONObject(line_render.toString());
-                        if(jo.getString("uniqId").equalsIgnoreCase(id))
-                            response = true;
+                JSONObject jo = new JSONObject(line_render);
+                if(jo.getString("uniqId").equalsIgnoreCase(id))
+                    response = true;
 
-                    } catch (JSONException ex) {
-                        System.out.println(" Error json object  " + ex.toString());
-                    }
-                    line_render = bfr_render.readLine();
-                }
-                bfr_render.close();
-            }catch(IOException ex) {
-                System.out.println(" Error Filereader  " + ex.toString());
+            } catch (JSONException ex) {
+                System.out.println(" Error json object  " + ex.toString());
             }
-        } else {
-            response = !response;
         }
 
         return response;
     }
 
     //load data from file
-    public void loadList(){
-        //read existing json file
-        File playerFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/" +"listPlayer.json");
-        if(playerFile.exists()){
-            try {
-                FileReader fr = new FileReader(playerFile);
-                BufferedReader bfr_render = new BufferedReader(fr);
-                StringBuilder str = new StringBuilder();
-                String line_render = bfr_render.readLine();
-                JSONArray jr = new JSONArray();
-                ListView lv = (ListView) findViewById(R.id.listViewPlayer);
-                ArrayList<String> alist = new ArrayList<String>();
-                int count = 0;
-                while (line_render != null) {
-                    try {
-                        JSONObject jo = new JSONObject(line_render.toString());
-                        String playerString = "Name : "+jo.getString("name") +" \nSurname : "+jo.getString("surname")+" \nAddress : "+jo.getString("address");
-                        alist.add(playerString);
-                        jr.put(jo);
-                        str.append(line_render).append("\n");
-                        line_render = bfr_render.readLine();
-                    } catch (JSONException ex){
-                        System.out.println(" Error json object  "+ex.toString());
-                    }
+    public void loadList() throws IOException, JSONException {
+            ListView lv = (ListView) findViewById(R.id.listViewPlayer);
+            ArrayList<String> alist = new ArrayList<String>();
+            ArrayList<String> listData = getApiCall();
+            JSONArray jr = new JSONArray();
+                for(String inputLine : listData){
+                    jr.put(new JSONObject(inputLine));
+                }
+                //here we have the parsed data into string
 
+                int count = 1;
+                for(int i = 0; i < jr.length(); i++){
+                    JSONObject jo = jr.getJSONObject(i);
+                    String playerString = count + ") Name : "+jo.getString("name") +" \nSurname : "+jo.getString("surname")+" \nAddress : "+jo.getString("address");
+                    alist.add(playerString);
+                    if(count == getMaxNumberOfPlayer())
+                        alist.add("\n *********** Wait List ********** \n");
                     count++;
                 }
-                bfr_render.close();
-                System.out.println("List of existing Players  : " + jr);
+
                 final ArrayAdapter<String> adp = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,android.R.id.text1, alist);
                 lv.setAdapter(adp);
-            } catch (IOException e) {
-                System.out.println(" Error read existing file  "+e.toString());
-            }
-        } else {
-            System.out.println("File not found in the given directory");
-        }
+
     }
     // --SYNTHESIZED-CODE-SUBCLASSES-START--
     void gameAction0() {
@@ -560,11 +733,17 @@ onInputAction0();
                     final EditText ed = (EditText)findViewById(R.id.pUniqueID);
                     final TextView tv_response = (TextView) findViewById(R.id.textViewCP);
                     if(ed.getText().toString() != ""){
-                        if (deletePlayerById(ed.getText().toString())) {
-                            tv_response.setText("you were deleted ");
-                            tv_response.setTextColor(R.color.design_default_color_on_secondary);
-                            System.out.println("The player was deleted  ");
-                            ed.setText("");
+                        try {
+                            if (deletePlayerById(ed.getText().toString())) {
+                                tv_response.setText("you were deleted ");
+                                tv_response.setTextColor(R.color.design_default_color_on_secondary);
+                                System.out.println("The player was deleted  ");
+                                ed.setText("");
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            System.out.println(" Error parsing data by delete "+e.toString());
                         }
                     }
                 }
@@ -579,9 +758,17 @@ onInputAction0();
                 @RequiresApi(api = Build.VERSION_CODES.R)
                 @Override
                 public void onClick(View view) {
+                    try {
+                        ifGameExist();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     final EditText edName = (EditText)findViewById(R.id.pName);
                     final EditText edSurname = (EditText)findViewById(R.id.pSurname);
                     final EditText edAdresse = (EditText)findViewById(R.id.pAddress);
+                    //File playerFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + "listPlayer.json");
                     JSONObject jsonObject = new JSONObject();
                     try {
                         if(!edName.getText().toString().equalsIgnoreCase("")
@@ -589,16 +776,18 @@ onInputAction0();
                                 !edAdresse.getText().toString().equalsIgnoreCase("")){
 
                             //check if player already exist
-                            if(!playerExist(edName.getText().toString() , edSurname.getText().toString() , edAdresse.getText().toString())) {
+                            if(playerExist(edName.getText().toString() , edSurname.getText().toString() , edAdresse.getText().toString()) == false) {
                                 jsonObject.put("name", edName.getText().toString());
                                 jsonObject.put("surname", edSurname.getText().toString());
                                 jsonObject.put("address", edAdresse.getText().toString());
 
                                 //generate random uuid if not exist
                                 String uuid = "";
-                                do {
-                                    uuid = UUID.randomUUID().toString();
-                                } while (uuidExist(uuid) == true);
+                                    do {
+                                        uuid = UUID.randomUUID().toString();
+                                    } while (uuidExist(uuid) == true);
+
+
                                 UUID.randomUUID().toString();
                                 jsonObject.put("uniqId", uuid);
                                 TextView tv_uuid = (TextView) findViewById(R.id.uuidShow);
@@ -607,37 +796,19 @@ onInputAction0();
 
                                 StringBuilder strb = new StringBuilder();
                                 String player = jsonObject.toString();
-                                File playerFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + "listPlayer.json");
-                                if(playerFile.exists()){
-                                    try {
-                                        //read existing json file
-                                        FileReader fr = new FileReader(playerFile);
-                                        if(playerFile.exists()){
-                                            BufferedReader bfr = new BufferedReader(fr);
-                                            String line = bfr.readLine();
-                                            while (line != null) {
-                                                strb.append(line).append("\n");
-                                                line = bfr.readLine();
-                                            }
-                                            bfr.close();
-                                        }
-
-
-                                    } catch (IOException e) {
-                                        System.out.println("Error writting in json file " + e.toString());
-                                        //e.printStackTrace();
-                                    }
+                                ArrayList<String> listData = getApiCall();
+                                JSONArray jr_ = new JSONArray();
+                                for(String line : listData){
+                                    JSONObject tmp_jo = new JSONObject(line.toString());
+                                    jr_.put(tmp_jo);
+                                    System.out.println("Line : "+line);
+                                    strb.append(line).append("\n");
                                 }
                                 // add last player
+                                jr_.put(jsonObject);
                                 strb.append(player);
-                                try {
-                                    FileWriter filewriter = new FileWriter(playerFile);
-                                    BufferedWriter bfrW = new BufferedWriter(filewriter);
-                                    bfrW.write(String.valueOf(strb));
-                                    bfrW.close();
-                                } catch(IOException ex){
-                                    System.out.println("Writer error adding player not allow "+ex.toString());
-                                }
+                                //post data
+                                postApiCall(String.valueOf(jr_));
 
                             } else {
                                 TextView tv_uuid = (TextView) findViewById(R.id.uuidShow);
@@ -646,31 +817,8 @@ onInputAction0();
                             }
                         }
 
-                        //read the file again to find new data
-                        //read existing json file
-                        File playerFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/" +"listPlayer.json");
-                        if(playerFile.exists()) {
-                            try {
-                                FileReader fr = new FileReader(playerFile);
-                                BufferedReader bfr_render = new BufferedReader(fr);
-                                StringBuilder str = new StringBuilder();
-                                String line_render = bfr_render.readLine();
-                                JSONArray jr = new JSONArray();
-                                while (line_render != null) {
-                                    JSONObject jo = new JSONObject(line_render.toString());
-                                    jr.put(jo);
-                                    str.append(line_render).append("\n");
-                                    line_render = bfr_render.readLine();
-                                }
-                                // add last player
-                                bfr_render.close();
-                                System.out.println("List of existing Players  : " + jr);
-                            } catch (IOException e) {
-                                System.out.println(" Error read existing file  "+e.toString());
-                            }
-                        }
 
-                    } catch (JSONException e) {
+                    } catch (JSONException | IOException e) {
                         System.out.println(" Error parsing jsonObject "+e.toString());
                         //e.printStackTrace();
                     }
@@ -687,7 +835,16 @@ onInputAction0();
         { final Button k = findViewById(R.id.button2);
     k.setOnClickListener(new Button.OnClickListener() {
         public void onClick(View v) {
-                onInputAction2();
+            final TextView edLabel = (TextView)findViewById(R.id.textView);
+            edLabel.setText("");
+            try {
+                ifGameExist();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            onInputAction2();
                 }
         }); }
       { final Button k = findViewById(R.id.connect);
@@ -725,6 +882,66 @@ onInputAction0();
 
                 }
         }); }
+
+        {
+            final Button k = findViewById(R.id.create);
+            k.setOnClickListener(new View.OnClickListener(){
+            //create new play
+                @Override
+                public void onClick(View view) {
+                    //get form data
+                    final EditText edDate = (EditText) findViewById(R.id.date);
+                    final EditText edTime = (EditText) findViewById(R.id.time);
+                    final EditText edAdress = (EditText) findViewById(R.id.gAddress);
+                    final EditText edMaxPlayer = (EditText) findViewById(R.id.maxplayer);
+                    JSONObject jsonObject = new JSONObject();
+
+                    //File gameFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + "listGame.json");
+                    if(!edDate.getText().toString().equalsIgnoreCase("")
+                            && !edTime.getText().toString().equalsIgnoreCase("")
+                            && !edAdress.getText().toString().equalsIgnoreCase("")
+                            && !edMaxPlayer.getText().toString().equalsIgnoreCase("") ) {
+
+                        try {
+                            jsonObject.put("date", edDate.getText().toString());
+                            jsonObject.put("time", edTime.getText().toString());
+                            jsonObject.put("address", edAdress.getText().toString());
+                            jsonObject.put("maxplayer", edMaxPlayer.getText().toString());
+                            jsonObject.put("state", "open");
+
+                            StringBuilder strb_play = new StringBuilder();
+                            String play = jsonObject.toString();
+                            postGameToServer(play);
+
+                            strb_play.append(play);
+                            //try {
+                                /*FileWriter filewriterGame = new FileWriter(gameFile);
+                                BufferedWriter bfrWGame = new BufferedWriter(filewriterGame);
+                                bfrWGame.write(String.valueOf(strb_play));
+                                bfrWGame.close();*/
+
+                                //clear fields
+                                edDate.setText("");
+                                edTime.setText("");
+                                edAdress.setText("");
+                                edMaxPlayer.setText("");
+                                /*File playerFile_ = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + "listPlayer.json");
+                                if(playerFile_.exists())
+                                    playerFile_.delete();*/
+
+                            /*} catch(IOException ex){
+                                System.out.println("Writer error create game not allow "+ex.toString());
+                            }*/
+
+                        } catch (JSONException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.out.println("Das Formular bitte ausfühlen");
+                    }
+                }
+            });
+        }
       { final Button k = findViewById(R.id.previous);
     k.setOnClickListener(new Button.OnClickListener() {
         public void onClick(View v) {
@@ -741,8 +958,12 @@ onInputAction0();
     k.setOnClickListener(new Button.OnClickListener() {
         public void onClick(View v) {
                 onInputAction6();
+            try {
                 loadList();
-                }
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+        }
         }); }
       { final Button k = findViewById(R.id.logOut);
     k.setOnClickListener(new Button.OnClickListener() {

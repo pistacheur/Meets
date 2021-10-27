@@ -348,6 +348,24 @@
 
 
         <EditText
+            android:id="@+id/maxplayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="190dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/Max_Player"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.435"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextFields" />
+
+
+        <EditText
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -451,7 +469,7 @@
         <TextView
             android:id="@+id/textView"
             android:layout_width="288dp"
-            android:layout_height="64dp"
+            android:layout_height="84dp"
             android:layout_marginTop="104dp"
             android:text="@string/text_R_P"
             android:textAlignment="center"
@@ -462,9 +480,9 @@
 
         <TextView
             android:id="@+id/uuidShow"
-            android:layout_width="210dp"
-            android:layout_height="64dp"
-            android:layout_marginTop="180dp"
+            android:layout_width="250dp"
+            android:layout_height="74dp"
+            android:layout_marginTop="190dp"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
@@ -509,7 +527,7 @@
             android:layout_marginTop="350dp"
             android:autofillHints="name"
             android:hint="@string/address_P"
-            android:inputType="text"
+            android:inputType="textPostalAddress"
             android:minHeight="48dp"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -517,11 +535,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="400dp"
+            android:autofillHints="name"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <Button
             android:id="@+id/buttonRegSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="430dp"
+            android:layout_marginTop="450dp"
             android:clickable="true"
             android:text="@string/submit"
             app:layout_constraintEnd_toEndOf="parent"
@@ -533,7 +567,7 @@
             android:id="@+id/RegCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="470dp"
+            android:layout_marginTop="500dp"
             android:clickable="true"
             android:text="@string/regCancel"
             app:layout_constraintEnd_toEndOf="parent"
@@ -547,7 +581,7 @@
             android:layout_width="113dp"
             android:layout_height="34dp"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="530dp"
+            android:layout_marginTop="550dp"
             android:clickable="true"
             android:text="@string/previous"
             app:layout_constraintStart_toStartOf="parent"
