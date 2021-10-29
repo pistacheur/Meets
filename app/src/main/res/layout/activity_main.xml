@@ -536,13 +536,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/phoneNumber"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_marginTop="400dp"
             android:autofillHints="name"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
+            android:hint="@string/phoneNumber"
+            android:inputType="phone"
             android:minHeight="48dp"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"

@@ -27,7 +27,7 @@
     <string name="tbl_name">Name</string>
     <string name="tbl_surname">Surname</string>
     <string name="tbl_address">Address</string>
-    <string name="email">E-Mail Address</string>
+    <string name="phoneNumber">Enter Your Phone Number</string>
 
 
 
