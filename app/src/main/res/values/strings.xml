@@ -13,7 +13,7 @@
     <string name="cancel_info">you have had a setback and will certainly not be able to participate in today\'s game. it is not a problem to cancel your registration to give your place to another player. just enter your unique identification code and then validate.</string>
     <string name="player_ID">Enter your Unique User ID</string>
     <string name="text_M">Welcome to you Manager what would you like to do ?</string>
-    <string name="modify_P">See and (or) modify the Playlist</string>
+    <string name="see_P">See and (or) modify the Playlist</string>
     <string name="change_T">Change the play Time</string>
     <string name="log_out">logOut</string>
     <string name="connect">Connection</string>

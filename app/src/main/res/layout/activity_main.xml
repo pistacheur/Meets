@@ -211,36 +211,16 @@
             android:layout_height="56dp"
             android:layout_marginTop="320dp"
             android:clickable="true"
-            android:text="@string/modify_P"
+            android:text="@string/see_P"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.482"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/changeT"
-            android:layout_width="219dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="720dp"
-            android:clickable="true"
-            android:text="@string/change_T"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.489"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
 
-        <Button
-            android:id="@+id/selectT"
-            android:layout_width="223dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="880dp"
-            android:clickable="true"
-            android:text="@string/stadium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.478"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
+
 
         <Button
             android:id="@+id/logOut"

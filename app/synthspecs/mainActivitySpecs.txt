@@ -1,20 +1,75 @@
-
 [CustomInputActions]
+managerConnection
+gameSuccessfullyCreated
+viewPlayList
+playerSuccessfullyRegistrated
+playerSuccessfullyDeleted
+registrationCanceling
+loadPlayListSucceed
+actionToBeExecutedWasStored
+
+
 
  
 
 [CustomOutputActions]
 
+addGameToGameList
+loadPlayList
+updateGameList
+addPlayerToPlayList
+removePlayerFromList
+updatePlayList
  
+
+[Threads]
+createPlay
+registerPlayer
+deletePlayer
+loadPlayList
+storeData
+
+
 
 [Assumptions]
 
+#init
 init
-
 X G ! init
+
+
+# Thread termination
+G(createPlay.start -> F createPlay.terminates)
+G(registerPlayer.start -> F registerPlayer.terminates)
+G(deletePlayer.start -> F deletePlayer.terminates)
+G(loadPlayList.start -> F loadPlayList.terminates)
+G(storeData.start -> F storeData.terminates)
+
+
+
+
+# createPlay
+G(createPlay.terminates -> (!gameSuccessfullyCreated W createPlay.start))
+!createPlay.terminates W createPlay.start
+
+
+# registerPlayer
+G(registerPlayer.terminates -> (!playerSuccessfullyRegistrated W registerPlayer.start))
+!registerPlayer.terminates W registerPlayer.start
+
+#deletePlayer
+G(deletePlayer.terminates -> (!playerSuccessfullyDeleted W registerPlayer.start))
+!deletePlayer.terminates W registerPlayer.start
+
+
+
+
+
 
 [Guarantees]
 
+
+# Which view is visible?
 init -> !done U mainPage.show
 init -> !done U connectPage.hide
 init -> !done U managerPage.hide
@@ -123,8 +178,7 @@ G(back1.click -> !done U registrationCancelingPage.hide)
 G(back1.click -> !done U connectPage.hide)
 G(back1.click -> !done U createGamePage.hide)
 G(back1.click -> !done U playerListPage.hide)
-
-
+G(back1.click -> !done U playerListPage.hide)
 
 
 
@@ -135,6 +189,8 @@ G(modifyP.click -> !done U playerRegistrationPage.hide)
 G(modifyP.click -> !done U registrationCancelingPage.hide)
 G(modifyP.click -> !done U connectPage.hide)
 G(modifyP.click -> !done U createGamePage.hide)
+
+
 
 
 G(retour.click -> !done U managerPage.show)
@@ -152,8 +208,46 @@ G(retour.click -> !done U playerListPage.hide)
 
 
 
+# creating new Play
+G(createP.click -> !done U addGameToGameList)
+G(create.click -> ((!done U createPlay.start) & (!createPlay.terminates U (createPlay.terminates & (! done U updateGameList)))))
+
+
+
+# Register Player
+G(buttonRegSubmit.click -> !done U addPlayerToPlayList)
+G(buttonRegSubmit.click -> ((!done U registerPlayer.start) & (!registerPlayer.terminates U (registerPlayer.terminates & (! done U updatePlayList)))))
+
+
+#delete Player
+G(buttonCancelSubmit.click -> !done U removePlayerFromList)
+G(buttonCancelSubmit.click -> ((!done U deletePlayer.start) & (!deletePlayer.terminates U (deletePlayer.terminates & (! done U updatePlayList)))))
 
 
 
 
 
+
+
+
+# New Player
+#G(modifyP.click -> !done U loadPlayList)
+#G(listViewPlayer.selected -> F loadPlayList.start)
+#G(addPlayerToPlayList -> (ANYOUTPUTS W (newPlayerIdentifierIsFine -> F loadPlayList.start)))
+
+
+
+
+# delete Player
+G(modifyP.click -> !done U loadPlayList)
+#G(listViewPlayer.selected -> F loadPlayList.start)
+#G(removePlayerFromList -> (ANYOUTPUTS W (playerIdentifierIsBad -> F loadPlayList.start)))
+
+
+# Store data thread
+G(storeData.terminates -> ((actionToBeExecutedWasStored -> !done U storeData.start) W storeData.start))
+(actionToBeExecutedWasStored -> !done U storeData.start) W storeData.start
+
+
+# Update view
+G(storeData.terminates -> F loadPlayList.start) 
